@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Rock-Paper-Scissors</title>
+    </head>
+    <body>
+        <script>
+            // computer will choose something randomly out of rock-paper-scissors
+            function computerPlay() {
+                let randomint = Math.floor(Math.random * 3) + 1;    // returns random int between 1 and 3 (including)
+
+                let option = '';
+                if (randomint == 1) {
+                    option = 'rock';
+                } else if (randomint == 2) {
+                    option = 'paper';
+                } else {
+                    option = 'scissor'
+                }
+
+                return option;
+            }
+
+            // player will input their move out of rock-paper-scissors
+            function playerPlay() {
+                let option = prompt("enter rock/paper/scissors: ");
+
+                return option;
+            }
+
+            // we will figure out the winner:
+            //     rock wins scissor
+            //     paper wins rock
+            //     scissor wins paper
+            //     same is tie
+            // then return the result as string
+            function playRound(playerSelection, computerSelection) {
+                playerSelection = playerSelection.toLowerCase();
+                computerSelection = computerSelection.toLowerCase();
+
+                results = ''
+                if (playerSelection == computerSelection) {
+                    results = 'D';
+                } else if (playerSelection == 'rock') {
+                    results = (computerSelection == 'scissors') ? 'W' : 'L';
+                } else if (playerSelection == 'paper') {
+                    results = (computerSelection == 'rock') ? 'W' : 'L';
+                } else if (playerSelection == 'scissors') {
+                    results = (computerSelection == 'paper') ? 'W' : 'L';
+                }
+
+                if (results == 'W') {
+                    results = `You Win! ${playerSelection} beats ${computerSelection}`;
+                } else if (results == 'L') {
+                    results = `You Lose! ${computerSelection} beats ${playerSelection}`;
+                } else {
+                    results = `Game Tied! ${playerSelection} ties ${computerSelection}`;
+                }
+
+                return results;
+            }
+
+            // loop it 5 times for 5 rounds and print answer each time
+                
+        </script>
+    </body>
+</html>
