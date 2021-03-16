@@ -1,0 +1,28 @@
+body {
+    background-color: aquamarine;
+}
+
+header {
+    font-size: 200%;
+    text-align: center;
+    padding: 10px;
+    border: 2px solid black;
+    margin: 20px 30%;
+    box-shadow: 2px 3px gray;
+}
+
+#option {
+    margin: 70px 20%;
+    border: 2px solid black;
+    padding: 50px 40px;
+    display: flex;
+    flex-flow: row wrap;
+    column-gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+button.options {
+    height: 50px;
+    width: 150px;
+}
