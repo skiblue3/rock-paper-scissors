@@ -72,33 +72,36 @@ const buttons = document.querySelectorAll('button.options');
 
 let results, playerScore = 0, computerScore = 0;
 
-buttons.forEach((button) => {    
-    button.addEventListener('click', function (e) {
-        const userInput = playerPlay(button.getAttribute('id'));
-        const compInput= computerPlay();
+function game(e) {
+    const userInput = playerPlay(this.getAttribute('id'));  // this refers to button here
+    const compInput= computerPlay();
 
-        results = playRound(userInput, compInput);  // takes result as W, L, D
-        // convert result to more readable and updates score
-        results = printResult(results, userInput,compInput);
+    results = playRound(userInput, compInput);  // takes) result as W, L, D
+    // convert result to more readable and updates score
+    results = printResult(results, userInput,compInput);
 
-        const resultDiv = document.querySelector('#result');        
-        const scoreDiv = document.querySelector('#score');
+    const resultDiv = document.querySelector('#result');        
+    const scoreDiv = document.querySelector('#score');
 
-        if (computerScore == 5 || playerScore == 5) {
-            if ((computerScore !== playerScore) && (computerScore <= 5 && playerScore <= 5))
-            {
-                resultDiv.textContent = `RESULTS: ${results}`;
-                scoreDiv.textContent = `YOU: ${playerScore}, COMP: ${computerScore}`;
-            }
-            document.querySelector('#gameover').textContent = `${scores(computerScore, playerScore)}`;
-            return;
-        } else if ((computerScore > 5) || (playerScore > 5)){
-            return;
-        } else {
+    if (computerScore == 5 || playerScore == 5) {
+        if ((computerScore !== playerScore) && (computerScore <= 5 && playerScore <= 5))
+        {
             resultDiv.textContent = `RESULTS: ${results}`;
-            scoreDiv.textContent = `YOU: ${playerScore}, COMP: ${computerScore}`;
+            scoreDiv.textContent = `YOU: ${playerScore}, COMP: ${computerScore}`;     
         }
-    });
+        document.querySelector('#gameover').textContent = `${scores(computerScore, playerScore)}`;
+        computerScore ++; playerScore++;    // to make one of them greater than 5
+        return;
+    } else if ((computerScore > 5) || (playerScore > 5)){
+        return;
+    } else {
+        resultDiv.textContent = `RESULTS: ${results}`;
+        scoreDiv.textContent = `YOU: ${playerScore}, COMP: ${computerScore}`;
+    }
+}
+
+buttons.forEach((button) => {    
+    button.addEventListener('click', game);
 });
     
     

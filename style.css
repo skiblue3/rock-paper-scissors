@@ -1,9 +1,11 @@
 body {
     background-color: aquamarine;
+    font-family: Dancing Script;
 }
 
 header {
-    font-size: 200%;
+    font-family: Pangolin;
+    font-size: 50px;
     text-align: center;
     padding: 10px;
     border: 2px solid black;
@@ -12,7 +14,9 @@ header {
 }
 
 #option {
-    margin: 70px 20%;
+    margin: 0px 20%;
+    margin-top: 40px;
+    margin-bottom: 20px; 
     border: 2px solid black;
     padding: 50px 40px;
     display: flex;
@@ -23,6 +27,36 @@ header {
 }
 
 button.options {
+    font-family: Comfortaa;
+    font-weight: bold;
     height: 50px;
     width: 150px;
+}
+
+main {
+    text-transform: capitalize;
+    font-size: 28px;
+}
+
+#result {
+    text-align: center;
+    display: block;
+    padding: 10px;
+    width: 38%;
+    margin: auto;
+}
+#score {
+    text-align: center;
+    display: block;
+    padding: 10px;
+    width: 20%;
+    margin: 5px auto; 
+}
+#gameover {
+    font-family: Fredoka One;
+    text-align: center;
+    display: block;
+    padding: 10px;
+    width: 20%;
+    margin: 5px auto; 
 }
