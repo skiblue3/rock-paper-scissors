@@ -15,18 +15,8 @@ function computerPlay() {
 }
 
 // player will input their move out of rock-paper-scissors
-function playerPlay() {
-    option = '';
-    while(true) {
-        option = prompt("enter rock/paper/scissors: ");
-        option = option.toLowerCase();
-        if (option != 'rock' && option != 'paper' && option != 'scissors') {
-            alert("invalid option");
-        } else {
-            break;
-        }
-    } 
-    return option;
+function playerPlay(input) {
+    return input;
 }
 
 // we will figure out the winner:
@@ -50,44 +40,65 @@ function playRound(playerSelection, computerSelection) {
     return results;
 }
 
-function scores(playerScore, computerScore) {
-    console.log(`Scores: Player->${playerScore}  Computer->${computerScore}`);
-    if (playerScore > computerScore) {
-        console.log('Player Wins!');
-    } else if (playerScore < computerScore) {
-        console.log('Computer Wins!');
-    } else {
-        console.log('Draw.');
-    }
-}
-
-// loop it 5 times for 5 rounds and print answer each time
-function game() {
-    let playerSelection, computerSelection;
-    let playerScore = computerScore = 0;
-    for (let i = 0; i < 5; i++) {
-        playerSelection = playerPlay();
-        computerSelection = computerPlay();
-        results = playRound(playerSelection, computerSelection);
-
-        switch (results) {
-        case 'W':
-            results = `You Win! ${playerSelection} beats ${computerSelection}`;
-            playerScore++;
-            break;
-        case 'L':
-            results = `You Lose! ${computerSelection} beats ${playerSelection}`;
-            computerScore++;
-            break;
-        case 'D':
-            results = `Game Tied! ${playerSelection} ties ${computerSelection}`;
-            break;
-        }
-        console.log(results);
+function printResult(results, playerSelection, computerSelection) {
+    switch (results) {
+    case 'W':
+        results = `You Win! ${playerSelection} beats ${computerSelection}`;
+        playerScore++;
+        break;
+    case 'L':
+        results = `You Lose! ${computerSelection} beats ${playerSelection}`;
+        computerScore++;
+        break;
+    case 'D':
+        results = `Game Tied! ${playerSelection} ties ${computerSelection}`;
+        break;
     }
     
-    scores(playerScore, computerScore);
+    return results;
 }
 
-game();
+function scores(computerScore, playerScore) {
+    if (playerScore > computerScore) {
+        return 'Player Wins!';
+    } else if (playerScore < computerScore) {
+        return 'Computer Wins!';
+    }
+}
+
+
+// runs the game
+const buttons = document.querySelectorAll('button.options');
+
+let results, playerScore = 0, computerScore = 0;
+
+buttons.forEach((button) => {    
+    button.addEventListener('click', function (e) {
+        const userInput = playerPlay(button.getAttribute('id'));
+        const compInput= computerPlay();
+
+        results = playRound(userInput, compInput);  // takes result as W, L, D
+        // convert result to more readable and updates score
+        results = printResult(results, userInput,compInput);
+
+        const resultDiv = document.querySelector('#result');        
+        const scoreDiv = document.querySelector('#score');
+
+        if (computerScore == 5 || playerScore == 5) {
+            if ((computerScore !== playerScore) && (computerScore <= 5 && playerScore <= 5))
+            {
+                resultDiv.textContent = `RESULTS: ${results}`;
+                scoreDiv.textContent = `YOU: ${playerScore}, COMP: ${computerScore}`;
+            }
+            document.querySelector('#gameover').textContent = `${scores(computerScore, playerScore)}`;
+            return;
+        } else if ((computerScore > 5) || (playerScore > 5)){
+            return;
+        } else {
+            resultDiv.textContent = `RESULTS: ${results}`;
+            scoreDiv.textContent = `YOU: ${playerScore}, COMP: ${computerScore}`;
+        }
+    });
+});
+    
     
